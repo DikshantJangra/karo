@@ -76,7 +76,7 @@ export default function Home() {
       const minutes = currentTime.getMinutes().toString().padStart(2, '0');
       setNewRow(prev => ({ ...prev, samay: `${hours}:${minutes} - ∞` }));
     }
-  }, [activeNewCell]);
+  }, [activeNewCell, newRow.samay]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewRow({ ...newRow, [e.target.name]: e.target.value });
@@ -115,7 +115,7 @@ export default function Home() {
     if (cellName === 'tag') {
       updatedRow.tags = editingValue.split(',').map(t => ({ name: t.trim() }));
     } else {
-      (updatedRow as any)[cellName] = editingValue;
+      updatedRow[cellName as 'samay' | 'karya' | 'notes'] = editingValue;
     }
 
     const { error } = await supabase.rpc('update_task_with_tags', {
@@ -212,7 +212,7 @@ export default function Home() {
                               className="cursor-pointer text-2xl"
                               onClick={() => {
                                 setEditingCell({ rowIndex, cellName: cellName as keyof NewRowData });
-                                setEditingValue(cellName === 'tag' ? row.tags.map(t => t.name).join(', ') : (row as any)[cellName]);
+                                setEditingValue(cellName === 'tag' ? row.tags.map(t => t.name).join(', ') : row[cellName as keyof Omit<RowData, 'id' | 'tags'>]);
                               }}
                             >
                               <BiRename />

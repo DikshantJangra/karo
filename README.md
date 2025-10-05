@@ -4,9 +4,6 @@
   <strong>A minimalist, real-time daily logger and time-tracking application.</strong>
 </p>
 
-<p align="center">
-  <img src="./public/Screenshot 2025-10-05 at 10.49.55 PM.png" alt="Karo Application Screenshot" width="700">
-</p>
 
 ---
 
